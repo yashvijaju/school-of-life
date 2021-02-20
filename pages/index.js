@@ -1,7 +1,24 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
+import { connectToDatabase } from "../util/mongodb";
 
-export default function Home() {
+
+export async function getServerSideProps() {
+  const { db } = await connectToDatabase();
+  const movies = await db
+    .collection("Questions")
+    .find({})
+    .toArray();
+
+  return {
+    props: {
+      movies: JSON.parse(JSON.stringify(movies)),
+    },
+  };
+}
+
+export default function Home(props) {
+  console.log(props)
   return (
     <div className={styles.container}>
       <Head>
