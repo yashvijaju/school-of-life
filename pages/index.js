@@ -1,30 +1,30 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import { connectToDatabase } from "../util/mongodb";
+// import { connectToDatabase } from "../util/mongodb";
 
 
-export async function getServerSideProps() {
-  const { db } = await connectToDatabase();
-  const movies = await db
-    .collection("Questions")
-    .find({})
-    .toArray();
+// export async function getServerSideProps() {
+//   const { db } = await connectToDatabase();
+//   const movies = await db
+//     .collection("Questions")
+//     .find({})
+//     .toArray();
 
-  return {
-    props: {
-      movies: JSON.parse(JSON.stringify(movies)),
-    },
-  };
-}
+//   return {
+//     props: {
+//       movies: JSON.parse(JSON.stringify(movies)),
+//     },
+//   };
+// }
 
 export default function Home(props) {
-  console.log(props)
+  // console.log(props)
   return (
     <div className={styles.container}>
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
-      </Head>
+      </Head> 
 
       <main className={styles.main}>
         <h1 className={styles.title}>
