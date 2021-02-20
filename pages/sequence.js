@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { Typography, Grid, TextField, InputAdornment, OutlinedInput, makeStyles } from '@material-ui/core'
 import FaceIcon from '@material-ui/icons/Face';
 import Alert from '@material-ui/lab/Alert';
@@ -59,6 +60,8 @@ const useStyles = makeStyles({
 
 export default function Sequence() {
     const styles = useStyles();
+    const router = useRouter();
+
     const [alert, setAlert] = React.useState(false);
     const [deck, chooseDeck] = React.useState("");
     const [type, chooseType] = React.useState("undecided");
@@ -88,6 +91,11 @@ export default function Sequence() {
     function setUsernameChosenBool(bool) {
         setUsernameChosen(bool)
     }
+
+    function handleRouting(link) {
+        router.push(link)
+      }
+    
 
 
     return(
@@ -218,9 +226,7 @@ export default function Sequence() {
                     <div></div>
                     : ((type === "create") && (usernameChosen)) ?
                         <Grid item xs={12}>
-                            <Link href="/game">
-                                <PrimaryButton text="start the game" handleClick={handleButtonClick} button_text="create"/>
-                            </Link>
+                            <PrimaryButton text="start the game" handleClick={handleRouting} button_text="/game"/>
                         </Grid> 
                         : (type === "create") ?
                             <div></div>
