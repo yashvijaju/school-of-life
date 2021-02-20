@@ -7,7 +7,7 @@ const black = '#000000';
 const useStyles = makeStyles({
     container: {
       borderRadius: '30px',
-      padding: '2vh 0vw',
+      padding: '20px 0vw',
       backgroundColor: props => props.primary_color,
       color: props => props.secondary_color,
       position: 'relative',
@@ -37,7 +37,7 @@ const useStyles = makeStyles({
     },
     container_hover: {
       borderRadius: '30px',
-      padding: '2vh 1vw',
+      padding: '20px 1vw',
       backgroundColor: props => props.primary_color,
       color: props => props.secondary_color,
       position: 'relative',
@@ -47,7 +47,7 @@ const useStyles = makeStyles({
       outlineOffset: '10px',
       height: '250px',
       '&:hover': {
-        transform: 'scale(2)',
+        transform: 'scale(1.5)',
         zIndex: 2,
       }
     },

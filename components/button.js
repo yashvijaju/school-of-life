@@ -30,7 +30,7 @@ export default function PrimaryButton(props) {
   const styles = useStyles(props);
 
   return (
-    <Grid container className={styles.primary_container} justify="center" alignItems="center" onClick={()=>{props.handleClick("join")}}>
+    <Grid container className={styles.primary_container} justify="center" alignItems="center" onClick={()=>{props.handleClick(props.button_text)}}>
         <Typography variant="body1">
             {props.text}
         </Typography>
@@ -42,7 +42,7 @@ export function SecondaryButton(props) {
   const styles = useStyles(props);
 
   return (
-    <Grid container className={styles.secondary_container} justify="center" alignItems="center" onClick={()=>{props.handleClick("create")}}>
+    <Grid container className={styles.secondary_container} justify="center" alignItems="center" onClick={()=>{props.handleClick(props.button_text)}}>
         <Typography variant="body1">
             {props.text}
         </Typography>

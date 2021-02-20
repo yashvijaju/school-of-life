@@ -1,5 +1,4 @@
 import React from 'react'
-import Link from 'next/link'
 import { Typography, Grid, TextField, InputAdornment, OutlinedInput, makeStyles } from '@material-ui/core'
 import FaceIcon from '@material-ui/icons/Face';
 import Alert from '@material-ui/lab/Alert';
@@ -16,15 +15,13 @@ const useStyles = makeStyles({
         margin: '10vh 5vw',
     },
     container_breadcrumbs: {
-        margin: '0 0 5vh 2vw',
+        margin: '0 0 5vh',
     },
     container_instructions: {
         borderRadius: '20px',
-        // border: '5px solid red',
+        border: '5px solid red',
         borderColor: red,
-        // backgroundColor: '#FACDC7',
-        padding: '2vh 5vw',
-        minHeight: '540px'
+        padding: '2vh 2vw',
     },
     container_actions: {
         margin: '3vh 0 0',
@@ -61,7 +58,7 @@ export default function Sequence() {
     const styles = useStyles();
     const [alert, setAlert] = React.useState(false);
     const [deck, chooseDeck] = React.useState("");
-    const [type, chooseType] = React.useState("undecided");
+    const [type, chooseType] = React.useState("");
     const [username, chooseUsername] = React.useState("");
     const [usernameChosen, setUsernameChosen] = React.useState(false);
     const [game_code, setGameCode] = React.useState("abcd-efgh-ijkl");
@@ -104,10 +101,10 @@ export default function Sequence() {
             }
             <Grid container direction="row" justify="space-between" spacing={3}>
                 <Grid className={styles.container_instructions} container item xs={6}>
-                    <Typography variant="h6" style={{padding: '0 2vw'}}>
+                    <Typography variant="h6">
                         Instructions :
                     </Typography>
-                    <Typography variant="body1" style={{padding: '0 2vw'}}>
+                    <Typography variant="body1">
                     Inspired by Sequence, this is a digital board game to spark deeper conversations. Though we've replaced the standard deck of cards with a deck of questions of our own, the motive of the game is still to create X-chip sequences across the board with your assigned team-member, before the opposing team can. Each player has to answer the question they want to put a chip on in order to move forward. While the end-goal may be competitive, the beauty in this game is the journey to get there – The more detailed your answer, the more the more follow-ups; the more follow-ups, the more chances for other players to share their answers too; and the more sharing, the greater the conversation.  
                     </Typography>
                 </Grid>
@@ -190,7 +187,7 @@ export default function Sequence() {
                                 }
                             </Grid>
                         </Grid>
-                    : 
+                    : (type === "join-decks") ?
                         <Grid container direction="row" item xs={6} spacing={3}>
                             <Grid item xs={4}>
                                 <DeckInstruction primary_color="#000000" secondary_color="#FFFFFF" icon="/assets/friends_black.svg" title="choose a deck" description="hover over any deck to see more details" />
@@ -211,27 +208,28 @@ export default function Sequence() {
                                 <DeckCover primary_color="#EAEE20" secondary_color="#32B1CC" icon="/assets/18.svg" title="chatty cups" description="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" subcategory1_icon="/assets/friends.svg" subcategory1_title="Title" subcategory1_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" subcategory2_icon="/assets/friends.svg" subcategory2_title="Title" subcategory2_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" subcategory3_icon="/assets/friends.svg" subcategory3_title="Title" subcategory3_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal"subcategory4_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" subcategory4_icon="/assets/friends.svg" subcategory4_title="Title" subcategory4_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" selected={deck} chooseDeck={changeDeck}/>
                             </Grid>
                         </Grid>
-                }
+                    :
+                        <Grid container item xs={5}>
+                            <Grid item xs={12}>
+                                <PrimaryButton text="join a game" handleClick={handleButtonClick} button_text="join-decks"/>
+                            </Grid> 
+                            <Grid item xs={12} style={{marginTop: '5vh'}}>
+                                <SecondaryButton text="start a game" handleClick={handleButtonClick} button_text="create"/>
+                            </Grid>
+                        </Grid>
+            }
             </Grid>
             <Grid container className={styles.container_actions} justify="space-between" spacing={3}>
                 {(type === "join") ? 
-                    <div></div>
-                    : ((type === "create") && (usernameChosen)) ?
+                    <Grid item xs={12}>
+                        <PrimaryButton text="join a game" handleClick={handleButtonClick} button_text="join"/>
+                    </Grid>
+                    : (type === "create") ?
                         <Grid item xs={12}>
-                            <Link href="/game">
-                                <PrimaryButton text="start the game" handleClick={handleButtonClick} button_text="create"/>
-                            </Link>
+                            <PrimaryButton text="start a game" handleClick={handleButtonClick} button_text="create"/>
                         </Grid> 
-                        : (type === "create") ?
-                            <div></div>
-                            :
+                        :
                             <>
-                                <Grid item xs={6}>
-                                    <PrimaryButton text="join a game" handleClick={handleButtonClick} button_text="join"/>
-                                </Grid> 
-                                <Grid item xs={6}>
-                                    <SecondaryButton text="start a game" handleClick={handleButtonClick} button_text="create"/>
-                                </Grid> 
                             </>
                 }
                 
