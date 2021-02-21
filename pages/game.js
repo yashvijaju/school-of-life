@@ -206,7 +206,6 @@ export default function Sequence(props) {
     const [activePlayer, setActivePlayer] = React.useState(0)
     const [currentPlayerNotif, setCurrentPlayerNotif] = React.useState(false)
     const [cardChosen, setCardChosen] = React.useState({subcategory_id: 0, number: 0, question: ""})
-    const [cardChosenConfirmBool, setCardChosenConfirmBool] = React.useState(false)
     const [cardChosenBool, setCardChosenBool] = React.useState(false)
     const [canShowCards, setCanShowCards] = React.useState(false)
 
@@ -219,6 +218,21 @@ export default function Sequence(props) {
                     }
                 }
             }
+            for (var i = 0; i < users[activePlayer]["cards_in_hand"].length; i++) {
+                if ((users[activePlayer]["cards_in_hand"][i]["number"] === cardChosen.number) && (users[activePlayer]["cards_in_hand"][i]["subcategory_id"] === cardChosen.subcategory_id)) {
+                    if (questionCounter+1 === 15) {
+                        users[activePlayer]["cards_in_hand"][i]["number"] = 15
+                        users[activePlayer]["cards_in_hand"][i]["subcategory_id"] = props.all_questions[questionCounter]["subcategory_id"]+1
+                        users[activePlayer]["cards_in_hand"][i]["question"] = props.all_questions[questionCounter]["question"]
+                    }
+                    else {
+                        users[activePlayer]["cards_in_hand"][i]["number"] = (questionCounter+1)%15
+                        users[activePlayer]["cards_in_hand"][i]["subcategory_id"] = props.all_questions[questionCounter]["subcategory_id"]+1
+                        users[activePlayer]["cards_in_hand"][i]["question"] = props.all_questions[questionCounter]["question"]
+                    }
+                }
+            }
+            alert("here")
         }
     }, [cardChosenBool])
 
@@ -227,10 +241,17 @@ export default function Sequence(props) {
     }
 
     function playCard(cardChosenConfirmBool) {
-        setCardChosenConfirmBool(cardChosenConfirmBool)
         setCanShowCards(false)
         setCardChosenBool(true)
+        alert(questionCounter)
+        var temp_counter = questionCounter +1
+        alert(temp_counter)
+        setQuestionCounter(temp_counter)
+        alert(questionCounter)
+        // changeCard(0,0,"")
+        
     }
+
 
     function updateNextPlayer() {
         var activePlayer_temp = (activePlayer+1) % 4
