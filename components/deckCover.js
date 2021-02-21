@@ -75,9 +75,9 @@ const useStyles = makeStyles({
       fontWeight: 'bold',
     },
     subcategory_icon_hover: {
-      width: '100%',
+      width: '90%',
       height: 'auto',
-      margin: '3vh 0 0vh 0',
+      margin: '0.5vh 0 0vh 0',
     },
     subcategory_desc_hover: {
       fontSize: '0.3rem',
