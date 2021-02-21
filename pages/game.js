@@ -191,6 +191,8 @@ export default function Sequence(props) {
         setQuestionCounter(20)
     }, [])
 
+    
+
     const [users, setUsers] = React.useState([
         {"_id": router.query.username, "team_id": 1, "cards_in_hand": user1_deck},
         {"_id": router.query.username2, "team_id": 2, "cards_in_hand": user2_deck},
