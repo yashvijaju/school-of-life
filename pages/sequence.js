@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { Typography, Grid, TextField, InputAdornment, OutlinedInput, makeStyles } from '@material-ui/core'
 import FaceIcon from '@material-ui/icons/Face';
 import Alert from '@material-ui/lab/Alert';
@@ -8,6 +9,7 @@ import Alert from '@material-ui/lab/Alert';
 import Breadcrumbs from '../components/breadcrumbs'
 import DeckCover, { DeckInstruction } from '../components/deckCover'
 import PrimaryButton, { SecondaryButton } from '../components/button'
+import { Int32 } from 'mongodb';
 const red = '#EE3A20';
 const black = '#000000';
 
@@ -59,6 +61,8 @@ const useStyles = makeStyles({
 
 export default function Sequence() {
     const styles = useStyles();
+    const router = useRouter();
+
     const [alert, setAlert] = React.useState(false);
     const [deck, chooseDeck] = React.useState("");
     const [type, chooseType] = React.useState("undecided");
@@ -89,6 +93,29 @@ export default function Sequence() {
         setUsernameChosen(bool)
     }
 
+    function handleRouting(link) {
+        router.push({pathname: link, query: { username: username },})
+      }
+    
+    
+      //get questions --> parse into array --> post req to push to main 
+
+    React.useEffect(() => {
+        if (usernameChosen && (type==="create")) {
+            async postRequest(_id, question, subcategory_id) {
+                const res = await fetch('/api/hello', {
+                    method: "POST",
+                    headers: {'Content-Type' : 'application/json'},
+                    body: JSON.stringify({ 
+                        question: "question",
+                        subcategory_id: Int32,
+                        _id: id,
+                        type: "old",
+                    }),
+                });
+            }
+        }
+    }, [usernameChosen])
 
     return(
         <div className={styles.container_outer}>
@@ -218,9 +245,7 @@ export default function Sequence() {
                     <div></div>
                     : ((type === "create") && (usernameChosen)) ?
                         <Grid item xs={12}>
-                            <Link href="/game">
-                                <PrimaryButton text="start the game" handleClick={handleButtonClick} button_text="create"/>
-                            </Link>
+                            <PrimaryButton text="start the game" handleClick={handleRouting} button_text="/game"/>
                         </Grid> 
                         : (type === "create") ?
                             <div></div>

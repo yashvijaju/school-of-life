@@ -36,15 +36,113 @@ export async function getServerSideProps({req}) {
   };
 }
 
-// async postRequest(id, header, content) {
-//   const res = await fetch('/api/vfc_approval', {
-//       method: "POST",
-//       headers: {'Content-Type' : 'application/json'},
-//       body: JSON.stringify({ 
-//           header: header,
-//           content: content,
-//           _id: id,
-//           type: "old",
-//       }),
-//   });
-// }
+import { connectToDatabase } from "../../util/mongodb";
+
+export default async (req, res) => {
+  const { db } = await connectToDatabase();
+
+  const movies = await db
+    .collection("Recess_Questions")
+    .find({})
+    .sort({ metacritic: -1 })
+    .limit(20)
+    .toArray();
+
+  res.json(movies);
+};
+
+export default function handler(req, res) {
+  const {
+    query: { pid },
+  } = req
+
+  res.end(`Post: ${pid}`)
+}
+
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+
+import { connectToDatabase } from "../util/mongodb";
+import errors from "../util/mongodb";
+
+const handler = async (req, res) => {
+    const { name, email, password, image, isExternal } = JSON.parse(req.body);
+
+    if (!name || !email || !password) {
+        res.statusCode = 422;
+
+        return res.json({ ...errors.REGISTER_FORM_DATA_MISSING });
+    }
+
+    try {
+        const { db } = await connectToDatabase();
+
+        const savedUser = await db.collection('users').find({ email });
+
+        if (!process.env.JWT_SECRET) {
+            res.statusCode = 422;
+
+            return res.json({ ...errors.SECRET_NOT_DEFINED });
+        }
+
+        if (savedUser && !isExternal) {
+            res.statusCode = 422;
+
+            return res.json({ ...errors.ALREADY_REGISTERED });
+        }
+
+        const hashed = await bcrypt.hash(password, 12);
+
+        if (hashed) {
+            if (savedUser) {
+                await db
+                    .collection('users')
+                    .updateOne({ email }, { $set: { password } });
+
+                const token = jwt.sign(
+                    { _id: savedUser._id },
+                    process.env.JWT_SECRET
+                );
+
+                return res.json({
+                    message: 'Saved successfully',
+                    user: savedUser,
+                    token,
+                });
+            }
+
+            const user = {
+                email,
+                name,
+                
+            };
+
+            await db.collection('users').insertOne(user);
+
+            const foundUser = await db.collection('users').findOne({ email });
+
+            await db.collection('preferences').insertOne({
+                user: foundUser,
+                numQuestions: 3,
+                gender: '',
+            });
+
+            const auth = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
+
+            res.status(201);
+
+            return res.json({
+                message: 'Saved successfully',
+                user,
+                auth,
+            });
+        }
+    } catch (error) {
+        res.statusCode = 500;
+
+        return res.json({ ...errors.ERROR_REGISTERING });
+    }
+};
+
+export default handler;
+
