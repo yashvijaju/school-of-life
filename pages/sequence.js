@@ -66,6 +66,9 @@ export default function Sequence() {
     const [deck, chooseDeck] = React.useState("");
     const [type, chooseType] = React.useState("undecided");
     const [username, chooseUsername] = React.useState("");
+    const [username2, chooseUsername2] = React.useState("");
+    const [username3, chooseUsername3] = React.useState("");
+    const [username4, chooseUsername4] = React.useState("");
     const [usernameChosen, setUsernameChosen] = React.useState(false);
     const [game_code, setGameCode] = React.useState("abcd-efgh-ijkl");
     const [players_in_game, setPlayersInGame] = React.useState("kavya     yashvi");
@@ -86,6 +89,15 @@ export default function Sequence() {
 
     function chooseNewUsername(e) {
         chooseUsername(e.target.value)
+    }
+    function chooseNewUsername2(e) {
+        chooseUsername2(e.target.value)
+    }
+    function chooseNewUsername3(e) {
+        chooseUsername3(e.target.value)
+    }
+    function chooseNewUsernam4(e) {
+        chooseUsername4(e.target.value)
     }
 
     function setUsernameChosenBool(bool) {
@@ -131,7 +143,7 @@ export default function Sequence() {
                             <Grid container direction="column" style={{padding: '0 2.5vw'}}>
                                 <Typography className={styles.create_instructions_text} variant="body2">1. choose your username</Typography>
                                 <OutlinedInput
-                                    placeholder="username"
+                                    placeholder="player 1"
                                     color="secondary"
                                     onChange={(e)=>{chooseNewUsername(e)}}
                                     style={{borderColor: red, marginTop: '1vh'}} 
@@ -143,14 +155,53 @@ export default function Sequence() {
                                     }}
                                     labelWidth={0}
                                 />
-                                {(username !== "") && (!usernameChosen) &&
+                                <OutlinedInput
+                                    placeholder="player 2"
+                                    color="secondary"
+                                    onChange={(e)=>{chooseNewUsername2(e)}}
+                                    style={{borderColor: red, marginTop: '1vh'}} 
+                                    disabled={usernameChosen ? true : false} 
+                                    endAdornment={<InputAdornment position="end"><FaceIcon color="secondary"/></InputAdornment>}
+                                    aria-describedby="outlined-weight-helper-text"
+                                    inputProps={{
+                                    'aria-label': 'weight',
+                                    }}
+                                    labelWidth={0}
+                                />
+                                <OutlinedInput
+                                    placeholder="player 3"
+                                    color="secondary"
+                                    onChange={(e)=>{chooseNewUsername3(e)}}
+                                    style={{borderColor: red, marginTop: '1vh'}} 
+                                    disabled={usernameChosen ? true : false} 
+                                    endAdornment={<InputAdornment position="end"><FaceIcon color="secondary"/></InputAdornment>}
+                                    aria-describedby="outlined-weight-helper-text"
+                                    inputProps={{
+                                    'aria-label': 'weight',
+                                    }}
+                                    labelWidth={0}
+                                />
+                                <OutlinedInput
+                                    placeholder="player 4"
+                                    color="secondary"
+                                    onChange={(e)=>{chooseNewUsername4(e)}}
+                                    style={{borderColor: red, marginTop: '1vh'}} 
+                                    disabled={usernameChosen ? true : false} 
+                                    endAdornment={<InputAdornment position="end"><FaceIcon color="secondary"/></InputAdornment>}
+                                    aria-describedby="outlined-weight-helper-text"
+                                    inputProps={{
+                                    'aria-label': 'weight',
+                                    }}
+                                    labelWidth={0}
+                                />
+                                {(username !== "") && (username2 !== "") && (username3 !== "") && (username4 !== "") && (!usernameChosen) &&
                                     <>
                                         <Grid item style={{marginTop: '3vh'}}>
                                             <PrimaryButton text="confirm username" handleClick={setUsernameChosenBool} button_text="true"/>
                                         </Grid>
                                     </>
                                 }
-                                {(usernameChosen) &&
+                                {/* {(usernameChosen) &&
                                     <>
                                         <Typography className={styles.create_instructions_text} variant="body2" style={{marginTop: '3vh'}}>2. share this code with your friends</Typography>
                                         <TextField id="username" label="" color="secondary" variant="outlined" value={game_code} style={{borderColor: red, marginTop: '1vh'}}  disabled="true"/>
@@ -158,7 +209,7 @@ export default function Sequence() {
                                         <Typography className={styles.create_instructions_text} variant="body2" style={{marginTop: '3vh'}}>3. these friends have joined. start the game when all your friends have joined</Typography>
                                         <TextField id="username" label="" color="secondary" variant="outlined" value={players_in_game} style={{borderColor: red, marginTop: '1vh'}} disabled="true"/>
                                     </>
-                                }
+                                } */}
                             </Grid>
                         </Grid>
                     : (type === "join") ?
