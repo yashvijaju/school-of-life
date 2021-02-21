@@ -9,12 +9,14 @@ import Alert from '@material-ui/lab/Alert';
 import Breadcrumbs from '../components/breadcrumbs'
 import DeckCover, { DeckInstruction } from '../components/deckCover'
 import PrimaryButton, { SecondaryButton } from '../components/button'
+import NavBar from '../components/navbar'
+
 const red = '#EE3A20';
 const black = '#000000';
 
 const useStyles = makeStyles({
     container_outer: {
-        margin: '10vh 5vw',
+        margin: '15vh 5vw',
     },
     container_breadcrumbs: {
         margin: '0 0 5vh 2vw',
@@ -66,6 +68,9 @@ export default function Sequence() {
     const [deck, chooseDeck] = React.useState("");
     const [type, chooseType] = React.useState("undecided");
     const [username, chooseUsername] = React.useState("");
+    const [username2, chooseUsername2] = React.useState("");
+    const [username3, chooseUsername3] = React.useState("");
+    const [username4, chooseUsername4] = React.useState("");
     const [usernameChosen, setUsernameChosen] = React.useState(false);
     const [game_code, setGameCode] = React.useState("abcd-efgh-ijkl");
     const [players_in_game, setPlayersInGame] = React.useState("kavya     yashvi");
@@ -87,20 +92,29 @@ export default function Sequence() {
     function chooseNewUsername(e) {
         chooseUsername(e.target.value)
     }
+    function chooseNewUsername2(e) {
+        chooseUsername2(e.target.value)
+    }
+    function chooseNewUsername3(e) {
+        chooseUsername3(e.target.value)
+    }
+    function chooseNewUsername4(e) {
+        chooseUsername4(e.target.value)
+    }
 
     function setUsernameChosenBool(bool) {
         setUsernameChosen(bool)
     }
 
     function handleRouting(link) {
-        router.push({pathname: link, query: { username: username },})
+        router.push({pathname: link, query: { username: username, username2: username2, username3: username3, username4: username4 },})
       }
     
 
 
     return(
         <div className={styles.container_outer}>
-            
+            <NavBar/>
             <Grid className={styles.container_breadcrumbs} container direction="row">
                 <Breadcrumbs href="/">Home</Breadcrumbs>
                 <Typography variant="body2" style={{float: 'left', cursor: 'pointer'}}>Sequence</Typography>
@@ -129,9 +143,9 @@ export default function Sequence() {
                                 <Typography className={styles.arrow_text} variant="caption">change deck</Typography>
                             </Grid>
                             <Grid container direction="column" style={{padding: '0 2.5vw'}}>
-                                <Typography className={styles.create_instructions_text} variant="body2">1. choose your username</Typography>
+                                <Typography className={styles.create_instructions_text} variant="body2">choose your usernames (for each player)</Typography>
                                 <OutlinedInput
-                                    placeholder="username"
+                                    placeholder="player 1"
                                     color="secondary"
                                     onChange={(e)=>{chooseNewUsername(e)}}
                                     style={{borderColor: red, marginTop: '1vh'}} 
@@ -143,14 +157,53 @@ export default function Sequence() {
                                     }}
                                     labelWidth={0}
                                 />
-                                {(username !== "") && (!usernameChosen) &&
+                                <OutlinedInput
+                                    placeholder="player 2"
+                                    color="secondary"
+                                    onChange={(e)=>{chooseNewUsername2(e)}}
+                                    style={{borderColor: red, marginTop: '1vh'}} 
+                                    disabled={usernameChosen ? true : false} 
+                                    endAdornment={<InputAdornment position="end"><FaceIcon color="secondary"/></InputAdornment>}
+                                    aria-describedby="outlined-weight-helper-text"
+                                    inputProps={{
+                                    'aria-label': 'weight',
+                                    }}
+                                    labelWidth={0}
+                                />
+                                <OutlinedInput
+                                    placeholder="player 3"
+                                    color="secondary"
+                                    onChange={(e)=>{chooseNewUsername3(e)}}
+                                    style={{borderColor: red, marginTop: '1vh'}} 
+                                    disabled={usernameChosen ? true : false} 
+                                    endAdornment={<InputAdornment position="end"><FaceIcon color="secondary"/></InputAdornment>}
+                                    aria-describedby="outlined-weight-helper-text"
+                                    inputProps={{
+                                    'aria-label': 'weight',
+                                    }}
+                                    labelWidth={0}
+                                />
+                                <OutlinedInput
+                                    placeholder="player 4"
+                                    color="secondary"
+                                    onChange={(e)=>{chooseNewUsername4(e)}}
+                                    style={{borderColor: red, marginTop: '1vh'}} 
+                                    disabled={usernameChosen ? true : false} 
+                                    endAdornment={<InputAdornment position="end"><FaceIcon color="secondary"/></InputAdornment>}
+                                    aria-describedby="outlined-weight-helper-text"
+                                    inputProps={{
+                                    'aria-label': 'weight',
+                                    }}
+                                    labelWidth={0}
+                                />
+                                {(username !== "") && (username2 !== "") && (username3 !== "") && (username4 !== "") && (!usernameChosen) &&
                                     <>
                                         <Grid item style={{marginTop: '3vh'}}>
                                             <PrimaryButton text="confirm username" handleClick={setUsernameChosenBool} button_text="true"/>
                                         </Grid>
                                     </>
                                 }
-                                {(usernameChosen) &&
+                                {/* {(usernameChosen) &&
                                     <>
                                         <Typography className={styles.create_instructions_text} variant="body2" style={{marginTop: '3vh'}}>2. share this code with your friends</Typography>
                                         <TextField id="username" label="" color="secondary" variant="outlined" value={game_code} style={{borderColor: red, marginTop: '1vh'}}  disabled="true"/>
@@ -158,67 +211,67 @@ export default function Sequence() {
                                         <Typography className={styles.create_instructions_text} variant="body2" style={{marginTop: '3vh'}}>3. these friends have joined. start the game when all your friends have joined</Typography>
                                         <TextField id="username" label="" color="secondary" variant="outlined" value={players_in_game} style={{borderColor: red, marginTop: '1vh'}} disabled="true"/>
                                     </>
-                                }
+                                } */}
                             </Grid>
                         </Grid>
-                    : (type === "join") ?
-                        <Grid className={styles.container_instructions_create} container direction="row" item xs={6} spacing={3}>
-                            <Grid container direction="column" alignItems="flex-start" onClick={()=>{handleButtonClick("undecided");chooseUsername("");setUsernameChosen(false)}}>
-                                <img className={styles.arrow_icon} src="/assets/back_arrow.svg"/>
-                                <Typography className={styles.arrow_text} variant="caption">start a new game instead</Typography>
-                            </Grid>
-                            <Grid container direction="column" style={{padding: '0 2.5vw'}}>
-                                <Typography className={styles.create_instructions_text} variant="body2">1. choose your username</Typography>
-                                <OutlinedInput
-                                    placeholder="username"
-                                    color="secondary"
-                                    onChange={(e)=>{chooseNewUsername(e)}}
-                                    style={{borderColor: red, marginTop: '1vh'}} 
-                                    disabled={usernameChosen ? true : false} 
-                                    endAdornment={<InputAdornment position="end"><FaceIcon color="secondary"/></InputAdornment>}
-                                    aria-describedby="outlined-weight-helper-text"
-                                    inputProps={{
-                                    'aria-label': 'weight',
-                                    }}
-                                    labelWidth={0}
-                                />
-                                {(username !== "") && (!usernameChosen) &&
-                                    <>
-                                        <Grid item style={{marginTop: '3vh'}}>
-                                            <PrimaryButton text="confirm username" handleClick={setUsernameChosenBool} button_text="true"/>
-                                        </Grid>
-                                    </>
-                                }
-                                {(usernameChosen) &&
-                                    <>
-                                        <Typography className={styles.create_instructions_text} variant="body2" style={{marginTop: '3vh'}}>2. write the code shared by the game master</Typography>
-                                        <TextField id="username" label="" color="secondary" variant="outlined" value={game_code} style={{borderColor: red, marginTop: '1vh'}}  disabled="true"/>
+                    // : (type === "join") ?
+                    //     <Grid className={styles.container_instructions_create} container direction="row" item xs={6} spacing={3}>
+                    //         <Grid container direction="column" alignItems="flex-start" onClick={()=>{handleButtonClick("undecided");chooseUsername("");setUsernameChosen(false)}}>
+                    //             <img className={styles.arrow_icon} src="/assets/back_arrow.svg"/>
+                    //             <Typography className={styles.arrow_text} variant="caption">start a new game instead</Typography>
+                    //         </Grid>
+                    //         <Grid container direction="column" style={{padding: '0 2.5vw'}}>
+                    //             <Typography className={styles.create_instructions_text} variant="body2">1. choose your username</Typography>
+                    //             <OutlinedInput
+                    //                 placeholder="username"
+                    //                 color="secondary"
+                    //                 onChange={(e)=>{chooseNewUsername(e)}}
+                    //                 style={{borderColor: red, marginTop: '1vh'}} 
+                    //                 disabled={usernameChosen ? true : false} 
+                    //                 endAdornment={<InputAdornment position="end"><FaceIcon color="secondary"/></InputAdornment>}
+                    //                 aria-describedby="outlined-weight-helper-text"
+                    //                 inputProps={{
+                    //                 'aria-label': 'weight',
+                    //                 }}
+                    //                 labelWidth={0}
+                    //             />
+                    //             {(username !== "") && (!usernameChosen) &&
+                    //                 <>
+                    //                     <Grid item style={{marginTop: '3vh'}}>
+                    //                         <PrimaryButton text="confirm username" handleClick={setUsernameChosenBool} button_text="true"/>
+                    //                     </Grid>
+                    //                 </>
+                    //             }
+                    //             {(usernameChosen) &&
+                    //                 <>
+                    //                     <Typography className={styles.create_instructions_text} variant="body2" style={{marginTop: '3vh'}}>2. write the code shared by the game master</Typography>
+                    //                     <TextField id="username" label="" color="secondary" variant="outlined" value={game_code} style={{borderColor: red, marginTop: '1vh'}}  disabled="true"/>
 
-                                        <Typography className={styles.create_instructions_text} variant="body2" style={{marginTop: '3vh'}}>3. you are in the game; wait for the game master to begin</Typography>
-                                        <TextField id="username" label="" color="secondary" variant="outlined" value={players_in_game} style={{borderColor: red, marginTop: '1vh'}} disabled="true"/>
-                                    </>
-                                }
-                            </Grid>
-                        </Grid>
+                    //                     <Typography className={styles.create_instructions_text} variant="body2" style={{marginTop: '3vh'}}>3. you are in the game; wait for the game master to begin</Typography>
+                    //                     <TextField id="username" label="" color="secondary" variant="outlined" value={players_in_game} style={{borderColor: red, marginTop: '1vh'}} disabled="true"/>
+                    //                 </>
+                    //             }
+                    //         </Grid>
+                    //     </Grid>
                     : 
                         <Grid container direction="row" item xs={6} spacing={3}>
                             <Grid item xs={4}>
                                 <DeckInstruction primary_color="#000000" secondary_color="#FFFFFF" icon="/assets/friends_black.svg" title="choose a deck" description="hover over any deck to see more details" />
                             </Grid>
                             <Grid item xs={4}>
-                                <DeckCover primary_color="#FF1493" secondary_color="#5B452B" icon="/assets/friends.svg" title="recess" description="A timeless deck for friends to dig deeper." subcategory1_icon="/assets/friends.svg" subcategory1_title="Title" subcategory1_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" subcategory2_icon="/assets/friends.svg" subcategory2_title="Title" subcategory2_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" subcategory3_icon="/assets/friends.svg" subcategory3_title="Title" subcategory3_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal"subcategory4_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" subcategory4_icon="/assets/friends.svg" subcategory4_title="Title" subcategory4_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" selected={deck} chooseDeck={changeDeck}/>
+                                <DeckCover primary_color="#FF1493" secondary_color="#5B452B" icon="/assets/friends.svg" title="recess" description="A timeless deck for friends to dig deeper." subcategory1_icon="/assets/hearts.svg" subcategory1_title="Hearts (1-15)" subcategory1_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" subcategory1_icon="/assets/spades.svg" subcategory2_title="Spades(1-15)" subcategory2_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" subcategory3_icon="/assets/clubs.svg" subcategory3_title="Clubs (1-15)" subcategory3_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal"subcategory4_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" subcategory4_icon="/assets/diamonds.svg" subcategory4_title="Diamonds (1-15)" subcategory4_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" selected={deck} chooseDeck={changeDeck}/>
                             </Grid>
                             <Grid item xs={4}>
-                                <DeckCover primary_color="#7FFF00" secondary_color="#EE3A20" icon="/assets/cupid.svg" title="cupid's arrows" description="60 questions to rise in love. Notice: Deck coming soon!" subcategory1_icon="/assets/friends.svg" subcategory1_title="Title" subcategory1_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" subcategory2_icon="/assets/friends.svg" subcategory2_title="Title" subcategory2_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" subcategory3_icon="/assets/friends.svg" subcategory3_title="Title" subcategory3_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal"subcategory4_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" subcategory4_icon="/assets/friends.svg" subcategory4_title="Title" subcategory4_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" selected={deck} chooseDeck={changeDeck}/>
+                                <DeckCover primary_color="#7FFF00" secondary_color="#EE3A20" icon="/assets/cupid.svg" title="cupid's arrows" description="60 questions to rise in love. Notice: Deck coming soon!" subcategory1_icon="/assets/hearts.svg" subcategory1_title="Hearts (1-15)" subcategory1_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" subcategory1_icon="/assets/spades.svg" subcategory2_title="Spades(1-15)" subcategory2_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" subcategory3_icon="/assets/clubs.svg" subcategory3_title="Clubs (1-15)" subcategory3_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal"subcategory4_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" subcategory4_icon="/assets/diamonds.svg" subcategory4_title="Diamonds (1-15)" subcategory4_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" selected={deck} chooseDeck={changeDeck}/>
                             </Grid>
                             <Grid item xs={4}>
-                                <DeckCover primary_color="#FF3503" secondary_color="#10532F" icon="/assets/family.svg" title="dinner table" description="Family-friendly questions to thicken blood some more. Notice: Deck coming soon!" subcategory1_icon="/assets/friends.svg" subcategory1_title="Title" subcategory1_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" subcategory2_icon="/assets/friends.svg" subcategory2_title="Title" subcategory2_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" subcategory3_icon="/assets/friends.svg" subcategory3_title="Title" subcategory3_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal"subcategory4_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" subcategory4_icon="/assets/friends.svg" subcategory4_title="Title" subcategory4_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" selected={deck} chooseDeck={changeDeck}/>
+                                <DeckCover primary_color="#FF3503" secondary_color="#10532F" icon="/assets/family.svg" title="dinner table" description="Family-friendly questions to thicken blood some more. Notice: Deck coming soon!" subcategory1_icon="/assets/hearts.svg" subcategory1_title="Hearts (1-15)" subcategory1_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" subcategory1_icon="/assets/spades.svg" subcategory2_title="Spades (1-15)" subcategory2_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" subcategory3_icon="/assets/clubs.svg" subcategory3_title="Clubs (1-15)" subcategory3_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal"subcategory4_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" subcategory4_icon="/assets/diamonds.svg" subcategory4_title="Diamonds (1-15)" subcategory4_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" selected={deck} chooseDeck={changeDeck}/>
                             </Grid>
                             <Grid item xs={4}>
-                                <DeckCover primary_color="#1F51FF" secondary_color="#FBBEBE" icon="/assets/impressions.svg" title="no strings attached" description="For not super personal, but still wildly interesting, conversations. Notice: Deck coming soon!" subcategory1_icon="/assets/friends.svg" subcategory1_title="Title" subcategory1_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" subcategory2_icon="/assets/friends.svg" subcategory2_title="Title" subcategory2_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" subcategory3_icon="/assets/friends.svg" subcategory3_title="Title" subcategory3_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal"subcategory4_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" subcategory4_icon="/assets/friends.svg" subcategory4_title="Title" subcategory4_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" selected={deck} chooseDeck={changeDeck}/>
+                                <DeckCover primary_color="#1F51FF" secondary_color="#FBBEBE" icon="/assets/impressions.svg" title="no strings attached" description="For not super personal, but still wildly interesting, conversations. Notice: Deck coming soon!" subcategory1_icon="/assets/hearts.svg" subcategory1_title="Hearts (1-15)" subcategory1_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" subcategory1_icon="/assets/spades.svg" subcategory2_title="Spades(1-15)" subcategory2_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" subcategory3_icon="/assets/clubs.svg" subcategory3_title="Clubs (1-15)" subcategory3_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal"subcategory4_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" subcategory4_icon="/assets/diamonds.svg" subcategory4_title="Diamonds (1-15)" subcategory4_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" selected={deck} chooseDeck={changeDeck}/>
                             </Grid>
                             <Grid item xs={4}>
-                                <DeckCover primary_color="#EAEE20" secondary_color="#32B1CC" icon="/assets/18.svg" title="saturday nights" description="(18+) For talks as wild as the parties we once had. Notice: Deck coming soon!" subcategory1_icon="/assets/friends.svg" subcategory1_title="Title" subcategory1_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" subcategory2_icon="/assets/friends.svg" subcategory2_title="Title" subcategory2_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" subcategory3_icon="/assets/friends.svg" subcategory3_title="Title" subcategory3_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal"subcategory4_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" subcategory4_icon="/assets/friends.svg" subcategory4_title="Title" subcategory4_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" selected={deck} chooseDeck={changeDeck}/>
+                                <DeckCover primary_color="#EAEE20" secondary_color="#32B1CC" icon="/assets/18.svg" title="saturday nights" description="(18+) For talks as wild as the parties we once had. Notice: Deck coming soon!" subcategory1_icon="/assets/hearts.svg" subcategory1_title="Hearts (1-15)" subcategory1_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" subcategory1_icon="/assets/spades.svg" subcategory2_title="Spades(1-15)" subcategory2_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" subcategory3_icon="/assets/clubs.svg" subcategory3_title="Clubs (1-15)" subcategory3_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal"subcategory4_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" subcategory4_icon="/assets/diamonds.svg" subcategory4_title="Diamonds (1-15)" subcategory4_sample="lorem ipsum dolor sitefa amet, consectetur elitjuli adipiscingal" selected={deck} chooseDeck={changeDeck}/>
                             </Grid>
                         </Grid>
                 }
@@ -234,10 +287,10 @@ export default function Sequence() {
                             <div></div>
                             :
                             <>
-                                <Grid item xs={6}>
+                                {/* <Grid item xs={6}>
                                     <PrimaryButton text="join a game" handleClick={handleButtonClick} button_text="join"/>
-                                </Grid> 
-                                <Grid item xs={6}>
+                                </Grid>  */}
+                                <Grid item xs={12}>
                                     <SecondaryButton text="start a game" handleClick={handleButtonClick} button_text="create"/>
                                 </Grid> 
                             </>

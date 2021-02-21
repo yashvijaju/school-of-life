@@ -83,7 +83,7 @@ export default function Home(props) {
       <Grid className={styles.cardContainer} container direction="row"> 
     <Grid item xs={9}>
       <Grid item xs={6}>
-      <Typography className={styles.title} variant="h3"><span style={{color: red}}>Sequence</span></Typography>
+      <Typography className={styles.title} variant="h3"><span style={{color: red}}>Sequence : Table for Four</span></Typography>
       </Grid>
       <Card className={styles.cards} variant="outlined">
         <CardContent>
