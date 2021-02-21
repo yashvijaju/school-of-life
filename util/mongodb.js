@@ -8,21 +8,13 @@ let cachedDb = null
 
 if (!uri) {
   throw new Error(
-    DB_USER="kavya"
-    DB_USER_PASSWORD="bhoonation"
-    DB_COLLECTION="Sequence"
-
-    NEXTAUTH_URL=http://localhost:3000
+    'Please define the MONGO_DB environment variable inside .env.local'
   )
 }
 
 if (!dbName) {
   throw new Error(
-    DB_USER="kavya"
-    DB_USER_PASSWORD="bhoonation"
-    DB_COLLECTION="Sequence"
-
-    NEXTAUTH_URL=http://localhost:3000
+    'Please define the MONGO_DB environment variable inside .env.local'
   )
 }
 

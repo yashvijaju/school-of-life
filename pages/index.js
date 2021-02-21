@@ -1,23 +1,23 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-// import { connectToDatabase } from "../util/mongodb";
+import { connectToDatabase } from "../util/mongodb";
 import Link from 'next/link'
 import NavBar from '../components/navbar'
 import { Grid, Typography, AppBar, Toolbar, Button, makeStyles } from '@material-ui/core'
 
-// export async function getServerSideProps() {
-//   const { db } = await connectToDatabase();
-//   const movies = await db
-//     .collection("Questions")
-//     .find({})
-//     .toArray();
+export async function getServerSideProps() {
+  const { db } = await connectToDatabase();
+  const movies = await db
+    .collection("Recess_Questions")
+    .find({})
+    .toArray();
 
-//   return {
-//     props: {
-//       movies: JSON.parse(JSON.stringify(movies)),
-//     },
-//   };
-// }
+  return {
+    props: {
+      movies: JSON.parse(JSON.stringify(movies)),
+    },
+  };
+}
 
 const red = '#EE3A20';
 const black = '#000000';
@@ -35,8 +35,8 @@ const useStyles = makeStyles({
 });
 
 export default function Home(props) {
-  const styles = useStyles(props);
-  // console.log(props)
+  const styles = useStyles();
+  console.log(props)
   return (
     <div>
       <Head>
