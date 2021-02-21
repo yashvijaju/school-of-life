@@ -9,6 +9,8 @@ import Alert from '@material-ui/lab/Alert';
 import Breadcrumbs from '../components/breadcrumbs'
 import DeckCover, { DeckInstruction } from '../components/deckCover'
 import PrimaryButton, { SecondaryButton } from '../components/button'
+import NavBar from '../components/navbar'
+
 const red = '#EE3A20';
 const black = '#000000';
 
@@ -112,7 +114,7 @@ export default function Sequence() {
 
     return(
         <div className={styles.container_outer}>
-            
+            <NavBar/>
             <Grid className={styles.container_breadcrumbs} container direction="row">
                 <Breadcrumbs href="/">Home</Breadcrumbs>
                 <Typography variant="body2" style={{float: 'left', cursor: 'pointer'}}>Sequence</Typography>

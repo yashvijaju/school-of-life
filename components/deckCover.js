@@ -107,7 +107,7 @@ export function SubCategory(props) {
     <Grid container justify="space-between">
       <Grid item xs={12}>
         <p className={styles.subcategory_desc_hover}>
-          sample question : {props.subcategory_sample}
+          category title : {props.subcategory_title}
           </p>
       </Grid>
     </Grid>
@@ -133,7 +133,7 @@ export default function DeckCover(props) {
           <img className={styles.image_hover} src={props.icon}/>
           <Typography className={styles.title_hover} variant="caption">{props.title}</Typography>
           <Typography className={styles.description_hover} variant="caption">{props.description}</Typography>
-          <Typography className={styles.subcategory_hover} variant="caption">sample questions : </Typography>
+          <Typography className={styles.subcategory_hover} variant="caption">categories : </Typography>
           <SubCategory subcategory_icon={props.subcategory1_icon} subcategory_title={props.subcategory1_title} subcategory_sample={props.subcategory1_sample}/>
           <SubCategory subcategory_icon={props.subcategory2_icon} subcategory_title={props.subcategory2_title} subcategory_sample={props.subcategory2_sample}/>
           <SubCategory subcategory_icon={props.subcategory3_icon} subcategory_title={props.subcategory3_title} subcategory_sample={props.subcategory3_sample}/>
