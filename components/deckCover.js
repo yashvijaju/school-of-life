@@ -111,9 +111,9 @@ export function SubCategory(props) {
     //   </Grid>
     // </Grid>
     <Grid container justify="center">
-      <Grid item xs={1}>
+      {/* <Grid item xs={1}>
         <img className={styles.subcategory_icon_hover} src={props.subcategory_icon}/>
-        </Grid>
+      </Grid> */}
       <Grid item xs={8}>
         <p className={styles.subcategory_desc_hover}>
           category title : {props.subcategory_title}
