@@ -5,6 +5,7 @@ import { Typography, Grid, makeStyles } from '@material-ui/core'
 
 // components
 import Card, { CardOnBoard, CardInHand } from '../components/card'
+import PrimaryButton from '../components/button'
 
 const red = '#EE3A20';
 const black = '#000000';
@@ -76,24 +77,30 @@ export default function Sequence() {
 
     React.useEffect(() => {
         setUsername(router.query.username)
-        alert(router.query.username)
-        alert(username)
     }, [router.query.username])
 
     const [gameStart, setGameStart] = React.useState(true)
     const [currentUser, setCurrentUser] = React.useState({
         "_id": username,
         "team_id": 1,
-        "cards_in_hand": [{number: '3', icon: iconA, question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?"},{number: '3', icon: iconB, question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor??"},{number: '3', icon: iconC, question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor??"},{number: '3', icon: iconB, question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?"},{number: '3', icon: iconA, question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?"}]
+        "cards_in_hand": [{number: '3', icon: iconA, question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?"},{number: '8', icon: iconB, question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor??"},{number: '9', icon: iconC, question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor??"},{number: '7', icon: iconB, question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?"},{number: '4', icon: iconA, question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?"}]
     })
 
     
-    const [activePlayer, setActivePlayer] = React.useState("kavya")
-    const [cardChosen, setCardChosen] = React.useState({"subcategory_id": 1, "number": 3})
+    const [activePlayer, setActivePlayer] = React.useState("yashvi")
+    const [currentPlayerNotif, setCurrentPlayerNotif] = React.useState(false)
+    const [cardChosen, setCardChosen] = React.useState({"subcategory_id": 0, "number": 0})
+    const [cardChosenConfirmBool, setCardChosenConfirmBool] = React.useState(false)
     const [cardChosenBool, setCardChosenBool] = React.useState(false)
 
     function changeCard(number, subcategory_id) {
         setCardChosen({"subcategory_id": subcategory_id, "number": number});
+    }
+
+    function playCard(cardChosenConfirmBool) {
+        setCardChosenConfirmBool(cardChosenConfirmBool)
+        setCardChosenBool(true)
+        setActivePlayer("kavya")
     }
 
     return(
@@ -119,7 +126,10 @@ export default function Sequence() {
                             my cards
                         </Typography>
                         <Typography variant="caption">
-                            ( hover over any card to see the question )
+                            {((username === activePlayer) && (cardChosen.number !== 0)) ? 
+                            "( click card to select, confirm to play )"
+                            : "( hover over any card to see the question )"
+                            }
                         </Typography>
                     </Grid>
                         {currentUser.cards_in_hand.map((obj, index) => 
@@ -127,6 +137,11 @@ export default function Sequence() {
                                 <CardInHand number={obj.number} icon={obj.icon} question={obj.question} primaryColor={primaryColor} secondaryColor={secondaryColor} activePlayerUsername={activePlayer} currentUserUsername={username} selectedCard={cardChosen} handleCardSelect={changeCard} />
                             </Grid>
                         )}
+                    {(username === activePlayer) && (cardChosen.number !== 0) &&
+                        <Grid item xs={12}>
+                            <PrimaryButton text="confirm" handleClick={playCard} style_overwriter={{padding: '1vh 2vw', marginTop: '0.5vh'}}/>
+                        </Grid>
+                    }
                 </Grid>
             </Grid>
 
@@ -135,11 +150,29 @@ export default function Sequence() {
                     <Grid className={styles.playerTurn}>
                         <Grid className={styles.activePlayerTurn}>
                             <Typography variant="h5" align="center" style={{color: primaryColor, fontWeight: 'bold'}}>
-                                hi {currentUser._id}, you are on team {currentUser.team_id} <br/>
+                                hi {username}, you are on team {currentUser.team_id} <br/>
                                 ask around, identify who else is on your team ;)
                             </Typography>
                         </Grid>
                         <Grid className={styles.activePlayerTurnInverse} onClick={()=>setGameStart(false)} style={{cursor: 'pointer'}}>
+                            <Typography variant="h5" align="center" style={{color: secondaryColor, fontWeight: 'bold'}}>
+                                continue
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            }
+
+            {(username === activePlayer) && (currentPlayerNotif) &&
+                <Grid className={styles.layer}>
+                    <Grid className={styles.playerTurn}>
+                        <Grid className={styles.activePlayerTurn}>
+                            <Typography variant="h5" align="center" style={{color: primaryColor, fontWeight: 'bold'}}>
+                                hi {username}, it is your turn <br/>
+                                click on any card in your collection (to the right) to play
+                            </Typography>
+                        </Grid>
+                        <Grid className={styles.activePlayerTurnInverse} onClick={()=>setCurrentPlayerNotif(false)} style={{cursor: 'pointer'}}>
                             <Typography variant="h5" align="center" style={{color: secondaryColor, fontWeight: 'bold'}}>
                                 continue
                             </Typography>
@@ -153,7 +186,7 @@ export default function Sequence() {
                     <Grid className={styles.playerTurn}>
                         <Grid className={styles.activePlayerTurn}>
                             <Typography variant="h5" align="center" style={{color: primaryColor, fontWeight: 'bold'}}>
-                                {activePlayer} picked
+                                {activePlayer} picked a card
                             </Typography>
                         </Grid>
                         <Card primaryColor="#32B1CC" secondaryColor="#EAEE20" number="3" icon="/assets/friends.svg" question="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?"/>
