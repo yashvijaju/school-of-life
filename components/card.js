@@ -19,6 +19,10 @@ const useStyles = makeStyles({
     },
     icon: {
     },
+    icon_card: {
+        width: '100px',
+        height: 'auto',
+    },
     question: {
         textAlign: 'center',
     },
@@ -138,13 +142,13 @@ export default function Card(props) {
         <Grid className={styles.container} container direction="column" justify="space-between">
             <Grid container direction="row" item justify="flex-end" alignItems="center">
                 <Typography className={styles.number} variant="h2">{props.number}</Typography>
-                <img className={styles.icon} src={icon}/>
+                <img className={styles.icon_card} src={icon}/>
             </Grid>
             <Grid container direction="row" item justify="center">
                 <Typography className={styles.question} variant="h6">{props.question}</Typography>
             </Grid>
             <Grid container direction="row" item justify="flex-start" alignItems="center">
-                <img className={styles.icon} src={icon}/>
+                <img className={styles.icon_card} src={icon}/>
                 <Typography className={styles.number} variant="h2">{props.number}</Typography>
             </Grid>
         </Grid>
