@@ -232,7 +232,6 @@ export default function Sequence(props) {
                     }
                 }
             }
-            alert("here")
         }
     }, [cardChosenBool])
 
@@ -243,11 +242,8 @@ export default function Sequence(props) {
     function playCard(cardChosenConfirmBool) {
         setCanShowCards(false)
         setCardChosenBool(true)
-        alert(questionCounter)
         var temp_counter = questionCounter +1
-        alert(temp_counter)
         setQuestionCounter(temp_counter)
-        alert(questionCounter)
         // changeCard(0,0,"")
         
     }
