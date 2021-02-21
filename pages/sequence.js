@@ -9,6 +9,7 @@ import Alert from '@material-ui/lab/Alert';
 import Breadcrumbs from '../components/breadcrumbs'
 import DeckCover, { DeckInstruction } from '../components/deckCover'
 import PrimaryButton, { SecondaryButton } from '../components/button'
+import { Int32 } from 'mongodb';
 const red = '#EE3A20';
 const black = '#000000';
 
@@ -96,7 +97,25 @@ export default function Sequence() {
         router.push({pathname: link, query: { username: username },})
       }
     
+    
+      //get questions --> parse into array --> post req to push to main 
 
+    React.useEffect(() => {
+        if (usernameChosen && (type==="create")) {
+            async postRequest(_id, question, subcategory_id) {
+                const res = await fetch('/api/hello', {
+                    method: "POST",
+                    headers: {'Content-Type' : 'application/json'},
+                    body: JSON.stringify({ 
+                        question: "question",
+                        subcategory_id: Int32,
+                        _id: id,
+                        type: "old",
+                    }),
+                });
+            }
+        }
+    }, [usernameChosen])
 
     return(
         <div className={styles.container_outer}>

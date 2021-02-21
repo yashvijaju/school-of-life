@@ -86,6 +86,11 @@ export default function Sequence() {
         "cards_in_hand": [{number: 3, subcategory_id: 1, question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?"},{number: 8, subcategory_id: 2, question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor??"},{number: 9, subcategory_id: 3, question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor??"},{number: 7, subcategory_id: 2, question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?"},{number: 4, subcategory_id: 1, question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?"}]
     })
 
+    React.useEffect(() => {
+        if (usernameChosen && (type==="create")) {
+            // call func to create game code here
+        }
+    }, [usernameChosen])
     
     const [activePlayer, setActivePlayer] = React.useState("yashvi")
     const [currentPlayerNotif, setCurrentPlayerNotif] = React.useState(false)
