@@ -16,7 +16,7 @@ const black = '#000000';
 
 const useStyles = makeStyles({
     container_outer: {
-        margin: '10vh 5vw',
+        margin: '15vh 5vw',
     },
     container_breadcrumbs: {
         margin: '0 0 5vh 2vw',
