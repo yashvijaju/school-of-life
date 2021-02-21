@@ -172,7 +172,7 @@ export function CardOnBoard(props) {
     if (props.token === 1) {
         token_src = props.token_id_1;
     }
-    else if (props.subcategory_id === 2) {
+    else if (props.token === 2) {
         token_src = props.token_id_2;
     }
     else {
@@ -211,7 +211,7 @@ export function CardInHand(props) {
     else {
         icon = props.subcategory_id_4;
     }
-
+    console.log(props.subcategory_id)
 
     if (props.currentUserUsername === props.activePlayerUsername) {
         return (

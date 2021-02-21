@@ -83,11 +83,6 @@ export async function getServerSideProps() {
 
     const all_questions = subcat_1.concat(subcat_2, subcat_3, subcat_4);
 
-    const push_questions = await db
-        .collection("Game_Play_Instances")
-        .find({"_id": "hello-world"})
-        .push({"deck": all_questions})
-
     return {
         props: {
             all_questions: JSON.parse(JSON.stringify(all_questions)),
@@ -123,6 +118,11 @@ export default function Sequence(props) {
         [{number: 4, subcategory_id: 3, token: 0},{number: 4, subcategory_id: 4, token: 0},{number: 1, subcategory_id: 2, token: 0},{number: 7, subcategory_id: 1, token: 0},{number: 12, subcategory_id: 3, token: 0},{number: 6, subcategory_id: 2, token: 0},{number: 2, subcategory_id: 3, token: 0},{number: 10, subcategory_id: 4, token: 0},{number: 12, subcategory_id: 1, token: 0},{number: 15, subcategory_id: 2, token: 0},],
         [{number: 6, subcategory_id: 4, token: 0},{number: 5, subcategory_id: 1, token: 0},{number: 6, subcategory_id: 1, token: 0},{number: 2, subcategory_id: 2, token: 0},{number: 5, subcategory_id: 3, token: 0},{number: 7, subcategory_id: 4, token: 0},{number: 14, subcategory_id: 1, token: 0},{number: 7, subcategory_id: 2, token: 0},{number: 11, subcategory_id: 3, token: 0},{number: 14, subcategory_id: 4, token: 0},],
     ]);
+
+    const [users, setUsers] = React.useState([
+        {"_id": "yashvi", "team_id": 1, "cards_in_hand": [{number: 3, subcategory_id: 1, question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?"},{number: 8, subcategory_id: 2, question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, sed do eiusmod tempor??"},{number: 9, subcategory_id: 3, question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor??"},{number: 7, subcategory_id: 2, question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor consectetur adipiscing elit, sed do eiusmod tempor?"},{number: 4, subcategory_id: 1, question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?"}]},
+    ])
+
     
     const [username, setUsername] = React.useState("")
 
@@ -131,11 +131,11 @@ export default function Sequence(props) {
     }, [router.query.username])
 
     const [gameStart, setGameStart] = React.useState(true)
-    const [currentUser, setCurrentUser] = React.useState({
-        "_id": username,
-        "team_id": 1,
-        "cards_in_hand": [{number: 3, subcategory_id: 1, question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?"},{number: 8, subcategory_id: 2, question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, sed do eiusmod tempor??"},{number: 9, subcategory_id: 3, question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor??"},{number: 7, subcategory_id: 2, question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor consectetur adipiscing elit, sed do eiusmod tempor?"},{number: 4, subcategory_id: 1, question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?"}]
-    })
+    // const [currentUser, setCurrentUser] = React.useState({
+    //     "_id": username,
+    //     "team_id": 1,
+    //     "cards_in_hand": [{number: 3, subcategory_id: 1, question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?"},{number: 8, subcategory_id: 2, question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, sed do eiusmod tempor??"},{number: 9, subcategory_id: 3, question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor??"},{number: 7, subcategory_id: 2, question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor consectetur adipiscing elit, sed do eiusmod tempor?"},{number: 4, subcategory_id: 1, question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?"}]
+    // })
     
     const [activePlayer, setActivePlayer] = React.useState("yashvi")
     const [currentPlayerNotif, setCurrentPlayerNotif] = React.useState(false)
@@ -167,6 +167,7 @@ export default function Sequence(props) {
     function setNextActivePlayer(cardChosenConfirmBool) {
         setActivePlayer("kavya")
     }
+    
 
     return(
         <div className={styles.container_outer}>
