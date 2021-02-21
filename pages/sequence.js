@@ -116,7 +116,9 @@ export default function Sequence() {
                         Instructions :
                     </Typography>
                     <Typography variant="body1" style={{padding: '0 2vw'}}>
-                    Inspired by Sequence, this is a digital board game to spark deeper conversations. Though we've replaced the standard deck of cards with a deck of questions of our own, the motive of the game is still to create X-chip sequences across the board with your assigned team-member, before the opposing team can. Each player has to answer the question they want to put a chip on in order to move forward. While the end-goal may be competitive, the beauty in this game is the journey to get there – The more detailed your answer, the more the more follow-ups; the more follow-ups, the more chances for other players to share their answers too; and the more sharing, the greater the conversation.  
+                    Players are divided into teams and assigned a set of 5 cards each. Turn by turn, each player will try to identify a spot on the board they want to mark with their team token. In order to mark the spot, the player needs to have the corresponding card with them, and answer the question to the rest of the players. To form a sequence on the board, each team needs to have 4 tokens side-by-side either vertically or horizontally. The game will end when there’s either a winning team, or all the cards get depleted. 
+
+                    Instructions to win aside, the purpose of this game is to break down walls and spark deeper conversations. Follow-up questions and sharing-out-of-turn is highly encouraged :)  
                     </Typography>
                 </Grid>
                 {
