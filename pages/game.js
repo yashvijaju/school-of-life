@@ -94,10 +94,10 @@ export default function Sequence(props) {
     const styles = useStyles();
     const router = useRouter();
 
-    const subcategory_id_1 = '/assets/friends.svg';
-    const subcategory_id_2 = '/assets/cupid.svg';
-    const subcategory_id_3 = '/assets/family.svg';
-    const subcategory_id_4 = '/assets/18.svg';
+    const subcategory_id_1 = '/assets/spades.svg';
+    const subcategory_id_2 = '/assets/hearts.svg';
+    const subcategory_id_3 = '/assets/clubs.svg';
+    const subcategory_id_4 = '/assets/diamonds.svg';
 
     const token_id_1 = '/assets/friends_blue.svg';
     const token_id_2 = '/assets/friends_green.svg';

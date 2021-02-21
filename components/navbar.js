@@ -25,7 +25,7 @@ export default function NavBar(props) {
         <Grid className={styles.container} container justify="space-between">
             <Grid container direction="row" item xs={9}>
                 <img className={styles.image} src="/assets/chiplogo.svg" style={{marginRight:"1vw"}}/>
-                <Typography className={styles.title} variant="h6">Ace of Hearts</Typography>        
+                <Typography className={styles.title} variant="h6">Table for Four</Typography>        
             </Grid>
             <Grid container item xs={3} justify="space-between">
                 <Typography className={styles.title} variant="h6">games</Typography>
