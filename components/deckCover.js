@@ -75,9 +75,9 @@ const useStyles = makeStyles({
       fontWeight: 'bold',
     },
     subcategory_icon_hover: {
-      width: '100%',
+      width: '90%',
       height: 'auto',
-      margin: '2vh 0 0',
+      margin: '0.5vh 0 0vh 0',
     },
     subcategory_desc_hover: {
       fontSize: '0.3rem',
@@ -110,8 +110,11 @@ export function SubCategory(props) {
     //       </p>
     //   </Grid>
     // </Grid>
-    <Grid container justify="space-between">
-      <Grid item xs={12}>
+    <Grid container justify="center">
+      <Grid item xs={1}>
+        <img className={styles.subcategory_icon_hover} src={props.subcategory_icon}/>
+        </Grid>
+      <Grid item xs={8}>
         <p className={styles.subcategory_desc_hover}>
           category title : {props.subcategory_title}
           </p>
