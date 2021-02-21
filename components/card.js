@@ -124,6 +124,26 @@ export function CardInHand(props) {
     const styles = useStyles(props);
     const [hover, changeHover] = React.useState(false)
 
+    if (props.currentUserUsername === props.activePlayerUsername) {
+        return (
+            <div>
+                {!hover ?
+                    <Grid className={styles.container_cardinhand} container direction="row" alignContent="space-between" onClick={()=>props.handleCardSelect(props.number, props.icon)}  onMouseEnter={()=>changeHover(true)}>
+                        <Grid item xs={12} container justify="flex-start">
+                            <Typography className={styles.number_cardinhand} variant="h3">{props.number}</Typography>
+                        </Grid>
+                        <Grid item xs={12} container justify="flex-end">
+                            <img className={styles.icon_cardinhand} src={props.icon}/>
+                        </Grid>
+                    </Grid>
+                    :
+                    <Grid className={styles.container_cardinhand_hover} container direction="column" alignItems="center" justify="center" onClick={()=>props.handleCardSelect(props.number, props.icon)} onMouseLeave={()=>changeHover(false)}>
+                    <p className={styles.question_cardinhand}>{props.question}</p>
+                    </Grid>
+                }
+            </div>
+        )
+    }
     return (
         <div>
             {!hover ?
@@ -141,7 +161,6 @@ export function CardInHand(props) {
                 </Grid>
             }
         </div>
-        
     )
 }
   

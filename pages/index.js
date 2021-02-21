@@ -7,7 +7,7 @@ import Link from 'next/link'
 export async function getServerSideProps() {
   const { db } = await connectToDatabase();
   const movies = await db
-    .collection("Questions")
+    .collection("Recess_Questions")
     .find({})
     .toArray();
 

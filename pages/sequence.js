@@ -93,7 +93,7 @@ export default function Sequence() {
     }
 
     function handleRouting(link) {
-        router.push(link)
+        router.push({pathname: link, query: { username: username },})
       }
     
 
