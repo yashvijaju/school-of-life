@@ -168,6 +168,17 @@ export function CardOnBoard(props) {
         icon = props.subcategory_id_4;
     }
 
+    var token_src;
+    if (props.token === 1) {
+        token_src = props.token_id_1;
+    }
+    else if (props.subcategory_id === 2) {
+        token_src = props.token_id_2;
+    }
+    else {
+        token_src = props.token_id_3;
+    }
+
     return (
         <Grid className={styles.container_cardonboard} container direction="row" alignContent="space-between">
             <Grid item xs={12} container justify="flex-start">
@@ -177,7 +188,7 @@ export function CardOnBoard(props) {
                 <img className={styles.icon_cardonboard} src={icon}/>
             </Grid>
             {(props.token !== 0) && 
-                <img className={styles.token_cardonboard} src="/assets/friends_blue.svg"/>
+                <img className={styles.token_cardonboard} src={token_src}/>
             }
         </Grid>
     )
@@ -215,7 +226,7 @@ export function CardInHand(props) {
                         </Grid>
                     </Grid>
                     :
-                    <Grid className={styles.container_cardinhand_hover_gameplay} container direction="column" alignItems="center" justify="center" onClick={()=>props.handleCardSelect(props.number, props.subcategory_id, props.question)} onMouseLeave={()=>changeHover(false)}>
+                    <Grid className={styles.container_cardinhand_hover_gameplay} container direction="column" alignItems="center" justify="center" onClick={()=>props.handleCardSelect(props.number, props.subcategory_id, props.question)} onMouseLeave={()=>changeHover(false)} style={{borderColor: ((props.selectedCard.number === props.number) && (props.selectedCard.subcategory_id === props.subcategory_id)) ? 'black' : props.secondaryColor}}>
                     <p className={styles.question_cardinhand}>{props.question}</p>
                     </Grid>
                 }

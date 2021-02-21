@@ -2,6 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Typography, Grid, makeStyles } from '@material-ui/core'
+import { connectToDatabase } from "../util/mongodb";
 
 // components
 import Card, { CardOnBoard, CardInHand } from '../components/card'
@@ -52,13 +53,63 @@ const useStyles = makeStyles({
     }
 });
 
-export default function Sequence() {
+export async function getServerSideProps() {
+    const { db } = await connectToDatabase();
+
+    
+    const subcat_1 = await db
+        .collection("Recess_Questions")
+        .find({subcategory_id: 0})
+        .limit(15)
+        .toArray();
+
+    const subcat_2 = await db
+        .collection("Recess_Questions")
+        .find({subcategory_id: 1})
+        .limit(15)
+        .toArray();
+    
+    const subcat_3 = await db
+        .collection("Recess_Questions")
+        .find({subcategory_id: 2})
+        .limit(15)
+        .toArray();
+
+    const subcat_4 = await db
+        .collection("Recess_Questions")
+        .find({subcategory_id: 3})
+        .limit(15)
+        .toArray();
+
+    const all_questions = subcat_1.concat(subcat_2, subcat_3, subcat_4);
+
+    const push_questions = await db
+        .collection("Game_Play_Instances")
+        .find({"_id": "hello-world"})
+        .push({"deck": all_questions})
+
+    return {
+        props: {
+            all_questions: JSON.parse(JSON.stringify(all_questions)),
+        },
+    };
+}
+
+export default function Sequence(props) {
+    console.log(props.all_questions);
+    
+    
     const styles = useStyles();
     const router = useRouter();
+
     const subcategory_id_1 = '/assets/friends.svg';
     const subcategory_id_2 = '/assets/cupid.svg';
     const subcategory_id_3 = '/assets/family.svg';
     const subcategory_id_4 = '/assets/18.svg';
+
+    const token_id_1 = '/assets/friends_blue.svg';
+    const token_id_2 = '/assets/friends_green.svg';
+    const token_id_3 = '/assets/friends_red.svg';
 
     const primaryColor="#32B1CC";
     const secondaryColor="#EAEE20";
@@ -83,14 +134,8 @@ export default function Sequence() {
     const [currentUser, setCurrentUser] = React.useState({
         "_id": username,
         "team_id": 1,
-        "cards_in_hand": [{number: 3, subcategory_id: 1, question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?"},{number: 8, subcategory_id: 2, question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor??"},{number: 9, subcategory_id: 3, question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor??"},{number: 7, subcategory_id: 2, question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?"},{number: 4, subcategory_id: 1, question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?"}]
+        "cards_in_hand": [{number: 3, subcategory_id: 1, question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?"},{number: 8, subcategory_id: 2, question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, sed do eiusmod tempor??"},{number: 9, subcategory_id: 3, question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor??"},{number: 7, subcategory_id: 2, question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor consectetur adipiscing elit, sed do eiusmod tempor?"},{number: 4, subcategory_id: 1, question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?"}]
     })
-
-    React.useEffect(() => {
-        if (usernameChosen && (type==="create")) {
-            // call func to create game code here
-        }
-    }, [usernameChosen])
     
     const [activePlayer, setActivePlayer] = React.useState("yashvi")
     const [currentPlayerNotif, setCurrentPlayerNotif] = React.useState(false)
@@ -134,7 +179,7 @@ export default function Sequence() {
                         <Grid container direction="row" key={index}>
                             {array.map((obj, index_) => 
                                 <Grid item key={index_}>
-                                    <CardOnBoard number={obj.number} subcategory_id={obj.subcategory_id} token={obj.token} subcategory_id_1={subcategory_id_1} subcategory_id_2={subcategory_id_2} subcategory_id_3={subcategory_id_3} subcategory_id_4={subcategory_id_4} primaryColor={primaryColor} secondaryColor={secondaryColor}/>
+                                    <CardOnBoard number={obj.number} subcategory_id={obj.subcategory_id} token={obj.token} subcategory_id_1={subcategory_id_1} subcategory_id_2={subcategory_id_2} subcategory_id_3={subcategory_id_3} subcategory_id_4={subcategory_id_4} token_id_1={token_id_1} token_id_2={token_id_2} token_id_3={token_id_3} primaryColor={primaryColor} secondaryColor={secondaryColor}/>
                                 </Grid>
                             )}
                         </Grid>
