@@ -23,8 +23,14 @@ const useStyles = makeStyles({
       margin: '1vh 0 0 0',
     },
     title: {
-      margin: '2.5vh 0 7.5vh 0',
+      // margin: '2.5vh 0 7.5vh 0',
       fontWeight: 'bold',
+      position: 'absolute',
+      textAlign: 'center',
+      left: '3vw',
+      right: '3vw',
+      bottom: '7.5vh',
+      width: 'calc(100%-6vw)',
     },
     playNow: {
       position: 'absolute',
