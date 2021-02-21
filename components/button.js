@@ -30,7 +30,7 @@ export default function PrimaryButton(props) {
   const styles = useStyles(props);
 
   return (
-    <Grid container className={styles.primary_container} justify="center" alignItems="center" onClick={()=>{props.handleClick(props.button_text)}}>
+    <Grid container className={styles.primary_container} justify="center" alignItems="center" onClick={()=>{props.handleClick(props.button_text)}} style={props.style_overwriter}>
         <Typography variant="body1">
             {props.text}
         </Typography>
