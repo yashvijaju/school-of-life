@@ -192,10 +192,10 @@ export default function Sequence(props) {
     })
 
     const [users, setUsers] = React.useState([
-        {"_id": "player 1", "team_id": 1, "cards_in_hand": user1_deck},
-        {"_id": "player 2", "team_id": 2, "cards_in_hand": user2_deck},
-        {"_id": "player 3", "team_id": 1, "cards_in_hand": user3_deck},
-        {"_id": "player 4", "team_id": 2, "cards_in_hand": user4_deck},
+        {"_id": router.query.username, "team_id": 1, "cards_in_hand": user1_deck},
+        {"_id": router.query.username2, "team_id": 2, "cards_in_hand": user2_deck},
+        {"_id": router.query.username3, "team_id": 1, "cards_in_hand": user3_deck},
+        {"_id": router.query.username4, "team_id": 2, "cards_in_hand": user4_deck},
     ])
 
     console.log(users)

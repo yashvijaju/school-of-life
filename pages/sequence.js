@@ -96,7 +96,7 @@ export default function Sequence() {
     function chooseNewUsername3(e) {
         chooseUsername3(e.target.value)
     }
-    function chooseNewUsernam4(e) {
+    function chooseNewUsername4(e) {
         chooseUsername4(e.target.value)
     }
 
@@ -105,7 +105,7 @@ export default function Sequence() {
     }
 
     function handleRouting(link) {
-        router.push({pathname: link, query: { username: username },})
+        router.push({pathname: link, query: { username: username, username2: username2, username3: username3, username4: username4 },})
       }
     
 
@@ -141,7 +141,7 @@ export default function Sequence() {
                                 <Typography className={styles.arrow_text} variant="caption">change deck</Typography>
                             </Grid>
                             <Grid container direction="column" style={{padding: '0 2.5vw'}}>
-                                <Typography className={styles.create_instructions_text} variant="body2">1. choose your username</Typography>
+                                <Typography className={styles.create_instructions_text} variant="body2">choose your usernames (for each player)</Typography>
                                 <OutlinedInput
                                     placeholder="player 1"
                                     color="secondary"
@@ -212,45 +212,45 @@ export default function Sequence() {
                                 } */}
                             </Grid>
                         </Grid>
-                    : (type === "join") ?
-                        <Grid className={styles.container_instructions_create} container direction="row" item xs={6} spacing={3}>
-                            <Grid container direction="column" alignItems="flex-start" onClick={()=>{handleButtonClick("undecided");chooseUsername("");setUsernameChosen(false)}}>
-                                <img className={styles.arrow_icon} src="/assets/back_arrow.svg"/>
-                                <Typography className={styles.arrow_text} variant="caption">start a new game instead</Typography>
-                            </Grid>
-                            <Grid container direction="column" style={{padding: '0 2.5vw'}}>
-                                <Typography className={styles.create_instructions_text} variant="body2">1. choose your username</Typography>
-                                <OutlinedInput
-                                    placeholder="username"
-                                    color="secondary"
-                                    onChange={(e)=>{chooseNewUsername(e)}}
-                                    style={{borderColor: red, marginTop: '1vh'}} 
-                                    disabled={usernameChosen ? true : false} 
-                                    endAdornment={<InputAdornment position="end"><FaceIcon color="secondary"/></InputAdornment>}
-                                    aria-describedby="outlined-weight-helper-text"
-                                    inputProps={{
-                                    'aria-label': 'weight',
-                                    }}
-                                    labelWidth={0}
-                                />
-                                {(username !== "") && (!usernameChosen) &&
-                                    <>
-                                        <Grid item style={{marginTop: '3vh'}}>
-                                            <PrimaryButton text="confirm username" handleClick={setUsernameChosenBool} button_text="true"/>
-                                        </Grid>
-                                    </>
-                                }
-                                {(usernameChosen) &&
-                                    <>
-                                        <Typography className={styles.create_instructions_text} variant="body2" style={{marginTop: '3vh'}}>2. write the code shared by the game master</Typography>
-                                        <TextField id="username" label="" color="secondary" variant="outlined" value={game_code} style={{borderColor: red, marginTop: '1vh'}}  disabled="true"/>
+                    // : (type === "join") ?
+                    //     <Grid className={styles.container_instructions_create} container direction="row" item xs={6} spacing={3}>
+                    //         <Grid container direction="column" alignItems="flex-start" onClick={()=>{handleButtonClick("undecided");chooseUsername("");setUsernameChosen(false)}}>
+                    //             <img className={styles.arrow_icon} src="/assets/back_arrow.svg"/>
+                    //             <Typography className={styles.arrow_text} variant="caption">start a new game instead</Typography>
+                    //         </Grid>
+                    //         <Grid container direction="column" style={{padding: '0 2.5vw'}}>
+                    //             <Typography className={styles.create_instructions_text} variant="body2">1. choose your username</Typography>
+                    //             <OutlinedInput
+                    //                 placeholder="username"
+                    //                 color="secondary"
+                    //                 onChange={(e)=>{chooseNewUsername(e)}}
+                    //                 style={{borderColor: red, marginTop: '1vh'}} 
+                    //                 disabled={usernameChosen ? true : false} 
+                    //                 endAdornment={<InputAdornment position="end"><FaceIcon color="secondary"/></InputAdornment>}
+                    //                 aria-describedby="outlined-weight-helper-text"
+                    //                 inputProps={{
+                    //                 'aria-label': 'weight',
+                    //                 }}
+                    //                 labelWidth={0}
+                    //             />
+                    //             {(username !== "") && (!usernameChosen) &&
+                    //                 <>
+                    //                     <Grid item style={{marginTop: '3vh'}}>
+                    //                         <PrimaryButton text="confirm username" handleClick={setUsernameChosenBool} button_text="true"/>
+                    //                     </Grid>
+                    //                 </>
+                    //             }
+                    //             {(usernameChosen) &&
+                    //                 <>
+                    //                     <Typography className={styles.create_instructions_text} variant="body2" style={{marginTop: '3vh'}}>2. write the code shared by the game master</Typography>
+                    //                     <TextField id="username" label="" color="secondary" variant="outlined" value={game_code} style={{borderColor: red, marginTop: '1vh'}}  disabled="true"/>
 
-                                        <Typography className={styles.create_instructions_text} variant="body2" style={{marginTop: '3vh'}}>3. you are in the game; wait for the game master to begin</Typography>
-                                        <TextField id="username" label="" color="secondary" variant="outlined" value={players_in_game} style={{borderColor: red, marginTop: '1vh'}} disabled="true"/>
-                                    </>
-                                }
-                            </Grid>
-                        </Grid>
+                    //                     <Typography className={styles.create_instructions_text} variant="body2" style={{marginTop: '3vh'}}>3. you are in the game; wait for the game master to begin</Typography>
+                    //                     <TextField id="username" label="" color="secondary" variant="outlined" value={players_in_game} style={{borderColor: red, marginTop: '1vh'}} disabled="true"/>
+                    //                 </>
+                    //             }
+                    //         </Grid>
+                    //     </Grid>
                     : 
                         <Grid container direction="row" item xs={6} spacing={3}>
                             <Grid item xs={4}>
