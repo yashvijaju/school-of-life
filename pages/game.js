@@ -114,7 +114,8 @@ export default function Sequence(props) {
         [{number: 6, subcategory_id: 4, token: 0},{number: 5, subcategory_id: 1, token: 0},{number: 6, subcategory_id: 1, token: 0},{number: 2, subcategory_id: 2, token: 0},{number: 5, subcategory_id: 3, token: 0},{number: 7, subcategory_id: 4, token: 0},{number: 14, subcategory_id: 1, token: 0},{number: 7, subcategory_id: 2, token: 0},{number: 11, subcategory_id: 3, token: 0},{number: 14, subcategory_id: 4, token: 0},],
     ]);
 
-    const [questionCounter, setQuestionCounter] = React.useState(1)
+    const [questionCounter, setQuestionCounter] = React.useState(1);
+    const [gameOver, setGameOver] = React.useState(false)
 
     var user1_deck = [];
     var user2_deck = [];
@@ -191,7 +192,11 @@ export default function Sequence(props) {
         setQuestionCounter(20)
     }, [])
 
-    
+    React.useEffect(() => {
+        if (questionCounter === 60) {
+            setGameOver(true)
+        }
+    }, [questionCounter])
 
     const [users, setUsers] = React.useState([
         {"_id": router.query.username, "team_id": 1, "cards_in_hand": user1_deck},
@@ -355,6 +360,25 @@ export default function Sequence(props) {
                             <Typography variant="h5" align="center" style={{color: primaryColor, fontWeight: 'bold'}}>
                                 continue
                             </Typography>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            }
+            {gameOver &&
+                <Grid className={styles.layer}>
+                    <Grid className={styles.playerTurn}>
+                        <Grid className={styles.activePlayerTurn}>
+                            <Typography variant="h5" align="center" style={{color: primaryColor, fontWeight: 'bold'}}>
+                                The game is over
+                            </Typography>
+                        </Grid>
+                        <Card primaryColor="#32B1CC" secondaryColor="#EAEE20" number={cardChosen.number} subcategory_id={cardChosen["subcategory_id"]} question={cardChosen.question} subcategory_id_1={subcategory_id_1} subcategory_id_2={subcategory_id_2} subcategory_id_3={subcategory_id_3} subcategory_id_4={subcategory_id_4} />
+                        <Grid className={styles.activePlayerTurn} style={{cursor: 'pointer'}}>
+                            <Link href="/">
+                                <Typography variant="h5" align="center" style={{color: primaryColor, fontWeight: 'bold'}}>
+                                    go to the home page
+                                </Typography>
+                            </Link>
                         </Grid>
                     </Grid>
                 </Grid>
